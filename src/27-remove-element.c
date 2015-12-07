@@ -36,22 +36,23 @@ static void verify(int* nums, int numsSize, int val, int* expect, int expectSize
         }
 }
 
+#define ASIZE(x)  (sizeof(x) / sizeof((x)[0]))
 static void Test0(void **state)
 {
-        int t1[6] = {1, 2, 3, 4, 5, 6}, t1e[] = {1, 2, 3, 4, 6};
-        verify(t1,  6,     // nums, numsSize
-               5,          // remove val
-               t1e, 5);    // expect, expectSize
+        int t1[] = {1, 2, 3, 4, 5, 6}, t1e[] = {1, 2, 3, 4, 6};
+        verify(t1,  ASIZE(t1),    // nums, numsSize
+               5,                 // remove val
+               t1e, ASIZE(t1e));  // expect, expectSize
 
-        int t2[1] = {2}, t2e[] = {2};
-        verify(t2,  1,     // nums, numsSize
-               3,          // remove val
-               t2e, 1);    // expect, expectSize
+        int t2[] = {2}, t2e[] = {2};
+        verify(t2,  ASIZE(t2),    // nums, numsSize
+               3,                 // remove val
+               t2e, ASIZE(t2e));  // expect, expectSize
 
-        int t3[2] = {4, 5}, t3e[1] = {5};
-        verify(t3,  2,     // nums, numsSize
-               4,          // remove val
-               t3e, 1);    // expect, expectSize
+        int t3[] = {4, 5}, t3e[] = {5};
+        verify(t3,  ASIZE(t3),    // nums, numsSize
+               4,                 // remove val
+               t3e, ASIZE(t3e));  // expect, expectSize
 }
 
 int main(int argc, char *argv[])
