@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <string.h>
 #include <assert.h>
 #include <stdarg.h>
 #include <stddef.h>
@@ -26,20 +27,38 @@ int removeElement(int* nums, int numsSize, int val) {
         return ptr;
 }
 
-static void test(void **state)
+// unittest with cmocka
+static void verify(int* nums, int numsSize, int val, int* expect, int expectSize)
 {
-        int arr[5] = {1, 2, 3, 4, 5};
-        assert_int_equal(removeElement(arr, 5, 5), 4); // {1, 2, 3, 4, 5}  => {1, 2, 3, 4}
-        assert_int_equal(removeElement(arr, 4, 5), 4); // {1, 2, 3, 4}     => {1, 2, 3, 4}
-        assert_int_equal(removeElement(arr, 4, 3), 3); // {1, 2, 3, 4}     => {1, 2, 4}
-        assert_int_equal(removeElement(arr, 3, 1), 2); // {1, 2, 3, 4}     => {2, 4}
+        assert_int_equal(removeElement(nums, numsSize, val), expectSize);
+        for (int i = 0; i < expectSize; i++) {
+                assert_int_equal(nums[i], expect[i]);
+        }
+}
+
+static void Test0(void **state)
+{
+        int t1[6] = {1, 2, 3, 4, 5, 6}, t1e[] = {1, 2, 3, 4, 6};
+        verify(t1,  6,     // nums, numsSize
+               5,          // remove val
+               t1e, 5);    // expect, expectSize
+
+        int t2[1] = {2}, t2e[] = {2};
+        verify(t2,  1,     // nums, numsSize
+               3,          // remove val
+               t2e, 1);    // expect, expectSize
+
+        int t3[2] = {4, 5}, t3e[1] = {5};
+        verify(t3,  2,     // nums, numsSize
+               4,          // remove val
+               t3e, 1);    // expect, expectSize
 }
 
 int main(int argc, char *argv[])
 {
-        const UnitTest tests[] = {
-                unit_test(test)
+        const struct CMUnitTest tests[] = {
+                cmocka_unit_test(Test0)
         };
 
-        return run_tests(tests);
+        return cmocka_run_group_tests(tests, NULL, NULL);
 }
