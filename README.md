@@ -11,9 +11,3 @@ FIXME
 Copyright © 2015 Yen-Chin, Lee <<coldnew.tw@gmail.com>>
 
 Distributed under the Eclipse Public License either version 1.0 or any later version.
-
-## Reference
-
-Some testcase is reference from following link:
-
-https://github.com/samfang/leetcode
