@@ -37,22 +37,17 @@ static void verify(int* nums, int numsSize, int val, int* expect, int expectSize
 }
 
 #define ASIZE(x)  (sizeof(x) / sizeof((x)[0]))
+#define VERIFY(a, b, val) verify(a, ASIZE(a), val, b, ASIZE(b))
 static void Test0(void **state)
 {
-        int t1[] = {1, 2, 3, 4, 5, 6}, t1e[] = {1, 2, 3, 4, 6};
-        verify(t1,  ASIZE(t1),    // nums, numsSize
-               5,                 // remove val
-               t1e, ASIZE(t1e));  // expect, expectSize
+        int a1[] = {1, 2, 3, 4, 5, 6}, b1[] = {1, 2, 3, 4, 6};
+        VERIFY(a1, b1, 5);
 
-        int t2[] = {2}, t2e[] = {2};
-        verify(t2,  ASIZE(t2),    // nums, numsSize
-               3,                 // remove val
-               t2e, ASIZE(t2e));  // expect, expectSize
+        int a2[] = {2}, b2[] = {2};
+        VERIFY(a2, b2, 3);
 
-        int t3[] = {4, 5}, t3e[] = {5};
-        verify(t3,  ASIZE(t3),    // nums, numsSize
-               4,                 // remove val
-               t3e, ASIZE(t3e));  // expect, expectSize
+        int a3[] = {4, 5}, b3[] = {5};
+        VERIFY(a3, b3, 4);
 }
 
 int main(int argc, char *argv[])
